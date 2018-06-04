@@ -253,7 +253,7 @@ public class ListUtilsTest {
         } catch(final NullPointerException npe) {} // this is what we want
     }
 
-    @Test
+    @Test(expected = NullPointerException.class)
     public void testSubtract() {
         final List<String> list = new ArrayList<>();
         list.add(a);
@@ -274,10 +274,8 @@ public class ListUtilsTest {
 
         assertEquals(expected, result);
 
-        try {
-            ListUtils.subtract(list, null);
-            fail("expecting NullPointerException");
-        } catch(final NullPointerException npe) {} // this is what we want
+        ListUtils.subtract(list, null);
+
     }
 
     @Test
