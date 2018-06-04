@@ -130,18 +130,21 @@ public class ListUtilsTest {
         };
         final List<Object> list = ListUtils.predicatedList(new ArrayList<>(), predicate);
         assertTrue("returned object should be a PredicatedList", list instanceof PredicatedList);
-        try {
-            ListUtils.predicatedList(new ArrayList<>(), null);
-            fail("Expecting IllegalArgumentException for null predicate.");
-        } catch (final NullPointerException ex) {
-            // expected
-        }
-        try {
-            ListUtils.predicatedList(null, predicate);
-            fail("Expecting IllegalArgumentException for null list.");
-        } catch (final NullPointerException ex) {
-            // expected
-        }
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testPredicatedListWithNullPredicate() {
+        ListUtils.predicatedList(new ArrayList<>(), null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testPredicatedListWithNullList() {
+        ListUtils.predicatedList(null, new Predicate<Object>() {
+            @Override
+            public boolean evaluate(final Object o) {
+                return true;
+            }
+        });
     }
 
     @Test
